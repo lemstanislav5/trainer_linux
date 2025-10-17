@@ -1,0 +1,503 @@
+{
+  "commands": [
+    {
+      "command": "man",
+      "description": "Просмотр руководства по любой команде",
+      "example": "man ls",
+      "category": "Справка",
+      "difficulty": "легкая",
+      "flags": "команда (имя команды для справки)",
+      "output_example": "LS(1) User Commands LS(1)\n\nNAME\n       ls - list directory contents\n\nSYNOPSIS\n       ls [OPTION]... [FILE]...",
+      "analysis": "• Используйте стрелки для навигации<br>• /pattern - поиск по шаблону<br>• q - выход из man<br>• man man - справка по самой man"
+    },
+    {
+      "command": "whatis",
+      "description": "Краткое описание команды",
+      "example": "whatis ls",
+      "category": "Справка",
+      "difficulty": "легкая",
+      "flags": "команда (имя команды)",
+      "output_example": "ls (1) - list directory contents",
+      "analysis": "• Быстрый способ понять назначение команды<br>• Полезно когда не нужно полное руководство"
+    },
+    {
+      "command": "info",
+      "description": "Альтернативная система справки",
+      "example": "info ls",
+      "category": "Справка",
+      "difficulty": "легкая",
+      "flags": "команда (имя команды)",
+      "output_example": "File: coreutils.info, Node: ls invocation, Next: dir invocation, Up: Directory listing",
+      "analysis": "• Более подробная чем man<br>• Навигация через ссылки<br>• q - выход"
+    },
+
+    {
+      "command": "ls",
+      "description": "Просмотр содержимого каталога",
+      "example": "ls -la /home/user",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-l (long), -a (all), -h (human readable)",
+      "output_example": "drwxr-xr-x 2 user user 4.0K Dec 11 10:30 .\ndrwxr-xr-x 4 root root 4.0K Dec 10 09:15 ..\n-rw-r--r-- 1 user user  123 Dec 11 10:25 file.txt",
+      "analysis": "• Первый символ: d (директория), - (файл), l (ссылка)<br>• Права: rwx (user), rwx (group), rwx (other)<br>• Размер в байтах, время модификации"
+    },
+    {
+      "command": "cd",
+      "description": "Смена каталога",
+      "example": "cd /var/log",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "путь (абсолютный или относительный)",
+      "output_example": "Переход в /var/log выполнен",
+      "analysis": "• cd ~ - домашняя директория<br>• cd .. - на уровень выше<br>• cd - - предыдущая директория"
+    },
+    {
+      "command": "pwd",
+      "description": "Показать текущий путь",
+      "example": "pwd",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "без флагов",
+      "output_example": "/home/user/documents",
+      "analysis": "• Всегда показывает абсолютный путь<br>• Полезно для ориентации в файловой системе"
+    },
+    {
+      "command": "mkdir",
+      "description": "Создать каталог",
+      "example": "mkdir new_directory",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-p (создать родительские директории)",
+      "output_example": "Директория 'new_directory' создана",
+      "analysis": "• mkdir -p dir1/dir2/dir3 - создаст всю цепочку<br>• Права по умолчанию: 755"
+    },
+    {
+      "command": "rm",
+      "description": "Удалить файлы/каталоги",
+      "example": "rm -r directory_name",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-r (рекурсивно), -f (принудительно)",
+      "output_example": "Директория 'directory_name' удалена",
+      "analysis": "• ⚠️ Осторожно! Удаление необратимо<br>• rm -rf / - КАТАСТРОФА!<br>• Всегда проверяйте путь"
+    },
+    {
+      "command": "cp",
+      "description": "Копировать файлы/каталоги",
+      "example": "cp -r source_dir destination_dir",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-r (рекурсивно), -v (verbose)",
+      "output_example": "'file.txt' -> 'backup/file.txt'",
+      "analysis": "• cp file1 file2 - копирование файла<br>• cp -r dir1 dir2 - копирование директории<br>• Сохраняет права доступа"
+    },
+    {
+      "command": "mv",
+      "description": "Переместить/переименовать файлы",
+      "example": "mv old_name new_name",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-i (интерактивно), -v (verbose)",
+      "output_example": "'old_name' -> 'new_name'",
+      "analysis": "• Фактически переименование - это перемещение<br>• Может перезаписывать существующие файлы<br>• Работает между разными разделами"
+    },
+    {
+      "command": "touch",
+      "description": "Создать пустой файл или обновить время модификации",
+      "example": "touch new_file.txt",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-a (изменить время доступа), -m (изменить время модификации)",
+      "output_example": "Файл 'new_file.txt' создан/обновлен",
+      "analysis": "• Если файл существует - обновляет временные метки<br>• Если не существует - создает пустой файл<br>• Права по умолчанию: 644"
+    },
+    {
+      "command": "cat",
+      "description": "Вывести содержимое файла",
+      "example": "cat /etc/hostname",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-n (нумерация строк), -A (показать все символы)",
+      "output_example": "myserver\n",
+      "analysis": "• Подходит для небольших файлов<br>• cat file1 file2 > combined - объединение файлов<br>• Для больших файлов используйте less"
+    },
+    {
+      "command": "less",
+      "description": "Просмотр файлов постранично",
+      "example": "less /var/log/syslog",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "без флагов (интерактивный режим)",
+      "output_example": "(содержимое файла с возможностью прокрутки)",
+      "analysis": "• Пробел - следующая страница<br>• /pattern - поиск<br>• q - выход<br>• g - начало файла, G - конец файла"
+    },
+    {
+      "command": "head",
+      "description": "Просмотр первых строк файла",
+      "example": "head -20 /var/log/syslog",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-n (количество строк)",
+      "output_example": "Dec 11 10:00:01 server CRON[1234]: (root) CMD (command)\nDec 11 10:01:01 server systemd[1]: Started Daily apt download activities.",
+      "analysis": "• По умолчанию показывает 10 строк<br>• Полезно для быстрого просмотра начала файла<br>• head -c 100 file - первые 100 байт"
+    },
+    {
+      "command": "tail",
+      "description": "Просмотр последних строк файла",
+      "example": "tail -f /var/log/syslog",
+      "category": "Основные системные",
+      "difficulty": "легкая",
+      "flags": "-n (количество строк), -f (следить за изменениями)",
+      "output_example": "Dec 11 10:59:01 server systemd[1]: Starting Cleanup of Temporary Directories...\nDec 11 10:59:01 server systemd[1]: Started Cleanup of Temporary Directories.",
+      "analysis": "• tail -f - мониторинг логов в реальном времени<br>• По умолчанию показывает 10 строк<br>• tail -n +20 file - начиная с 20-й строки"
+    },
+
+    {
+      "command": "chmod",
+      "description": "Изменить права доступа",
+      "example": "chmod 755 script.sh",
+      "category": "Управление файлами и правами",
+      "difficulty": "средняя",
+      "flags": "число (права), -R (рекурсивно)",
+      "output_example": "Права 'script.sh' изменены на -rwxr-xr-x",
+      "analysis": "• 755: user(rwx), group(rx), other(rx)<br>• 644: user(rw), group(r), other(r)<br>• 600: только владелец может читать/писать"
+    },
+    {
+      "command": "chown",
+      "description": "Сменить владельца файла",
+      "example": "chown www-data:www-data /var/www/html",
+      "category": "Управление файлами и правами",
+      "difficulty": "средняя",
+      "flags": "user:group (новый владелец), -R (рекурсивно)",
+      "output_example": "Владелец '/var/www/html' изменен на www-data:www-data",
+      "analysis": "• Критично для веб-серверов и служб<br>• chown user file - только пользователь<br>• chown :group file - только группа"
+    },
+    {
+      "command": "ls -l",
+      "description": "Просмотр прав доступа",
+      "example": "ls -l /etc/passwd",
+      "category": "Управление файлами и правами",
+      "difficulty": "легкая",
+      "flags": "-l (long format)",
+      "output_example": "-rw-r--r-- 1 root root 1234 Dec 11 10:30 /etc/passwd",
+      "analysis": "• -rw-r--r--: файл, владелец(rw), группа(r), другие(r)<br>• drwxr-xr-x: директория<br>• lrwxrwxrwx: символическая ссылка"
+    },
+    {
+      "command": "umask",
+      "description": "Установка маски создания файлов",
+      "example": "umask 022",
+      "category": "Управление файлами и правами",
+      "difficulty": "сложная",
+      "flags": "число (маска прав)",
+      "output_example": "umask установлен в 022",
+      "analysis": "• 022: файлы 644, директории 755<br>• 077: файлы 600, директории 700<br>• Маска вычитается из максимальных прав"
+    },
+
+    {
+      "command": "ps aux",
+      "description": "Просмотр запущенных процессов",
+      "example": "ps aux | grep nginx",
+      "category": "Работа с процессами",
+      "difficulty": "средняя",
+      "flags": "a (all), u (user format), x (without terminal)",
+      "output_example": "USER       PID %CPU %MEM    VSZ   RSS TTY STAT START TIME COMMAND\nwww-data  1234  0.0  0.5 102344 54321 ?   S    11:15 0:05 nginx: worker process",
+      "analysis": "• STAT: S (sleeping), R (running), Z (zombie)<br>• %CPU > 80% - возможна проблема<br>• VSZ - виртуальная память, RSS - физическая"
+    },
+    {
+      "command": "top",
+      "description": "Интерактивный мониторинг процессов",
+      "example": "top",
+      "category": "Работа с процессами",
+      "difficulty": "средняя",
+      "flags": "без флагов (интерактивный режим)",
+      "output_example": "top - 10:30:45 up 10 days, 1:23, 1 user, load average: 0.05, 0.10, 0.15\nTasks: 125 total, 1 running, 124 sleeping, 0 stopped, 0 zombie",
+      "analysis": "• q - выход<br>• k - завершить процесс<br>• 1 - показать все CPU<br>• M - сортировка по памяти"
+    },
+    {
+      "command": "htop",
+      "description": "Более удобный мониторинг процессов",
+      "example": "htop",
+      "category": "Работа с процессами",
+      "difficulty": "легкая",
+      "flags": "без флагов (интерактивный режим)",
+      "output_example": "(цветной интерфейс с деревом процессов)",
+      "analysis": "• F9 - завершить процесс<br>• F6 - сортировка<br>• Мышь поддерживается<br>• Более наглядный чем top"
+    },
+    {
+      "command": "kill",
+      "description": "Остановить процесс по PID",
+      "example": "kill 1234",
+      "category": "Работа с процессами",
+      "difficulty": "средняя",
+      "flags": "-9 (SIGKILL), -15 (SIGTERM), PID",
+      "output_example": "Процесс 1234 завершен",
+      "analysis": "• -15 (SIGTERM) - корректное завершение<br>• -9 (SIGKILL) - принудительное<br>• Сначала попробуйте SIGTERM, потом SIGKILL"
+    },
+    {
+      "command": "killall",
+      "description": "Остановить процесс по имени",
+      "example": "killall nginx",
+      "category": "Работа с процессами",
+      "difficulty": "средняя",
+      "flags": "-9 (SIGKILL), имя_процесса",
+      "output_example": "Все процессы nginx завершены",
+      "analysis": "• Завершает все процессы с указанным именем<br>• Полезно для служб с несколькими процессами<br>• killall -u user - завершить процессы пользователя"
+    },
+
+    {
+      "command": "ip a",
+      "description": "Просмотр сетевых интерфейсов",
+      "example": "ip addr show",
+      "category": "Сеть и подключение",
+      "difficulty": "легкая",
+      "flags": "addr show (показать адреса)",
+      "output_example": "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 state UNKNOWN\n    inet 127.0.0.1/8 scope host lo\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 state UP\n    inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0",
+      "analysis": "• Современная замена ifconfig<br>• /24 - маска сети (255.255.255.0)<br>• state UP - интерфейс активен"
+    },
+    {
+      "command": "ping",
+      "description": "Проверка доступности хоста",
+      "example": "ping -c 4 google.com",
+      "category": "Сеть и подключение",
+      "difficulty": "легкая",
+      "flags": "-c (количество пакетов), -i (интервал)",
+      "output_example": "64 bytes from 172.217.16.206: icmp_seq=1 ttl=115 time=25.4 ms\n64 bytes from 172.217.16.206: icmp_seq=2 ttl=115 time=24.8 ms",
+      "analysis": "• Ctrl+C - остановить<br>• time - время ответа (чем меньше - тем лучше)<br>• ttl - время жизни пакета"
+    },
+    {
+      "command": "ss -tuln",
+      "description": "Просмотр сетевых соединений",
+      "example": "ss -tuln | grep :80",
+      "category": "Сеть и подключение",
+      "difficulty": "средняя",
+      "flags": "-t (TCP), -u (UDP), -l (listen), -n (numeric)",
+      "output_example": "Netid State  Recv-Q Send-Q Local Address:Port Peer Address:Port\ntcp   LISTEN 0      128    0.0.0.0:22       0.0.0.0:*",
+      "analysis": "• Быстрее чем netstat<br>• State: LISTEN, ESTAB, UNCONN<br>• Recv-Q/Send-Q - размер очередей"
+    },
+    {
+      "command": "curl",
+      "description": "Скачивание файлов с веб-сервера",
+      "example": "curl -O https://example.com/file.txt",
+      "category": "Сеть и подключение",
+      "difficulty": "средняя",
+      "flags": "-O (сохранить с исходным именем), -L (следовать редиректам)",
+      "output_example": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n100 12345  100 12345    0     0  12345      0  0:00:01 --:--:--  0:00:01 12345",
+      "analysis": "• curl -I URL - только заголовки<br>• curl -o new_name URL - сохранить под другим именем<br>• curl -u user:pass URL - аутентификация"
+    },
+    {
+      "command": "ssh",
+      "description": "Подключение к удалённой машине",
+      "example": "ssh user@192.168.1.100",
+      "category": "Сеть и подключение",
+      "difficulty": "средняя",
+      "flags": "-p (порт), -i (файл ключа)",
+      "output_example": "user@192.168.1.100's password: \nLast login: Mon Dec 11 10:30:45 2023 from 192.168.1.50",
+      "analysis": "• ssh-copy-id - копировать ключ на сервер<br>• ~/.ssh/config - настройка подключений<br>• ssh-keygen - генерация ключей"
+    },
+
+    {
+      "command": "df -h",
+      "description": "Просмотр свободного места на дисках",
+      "example": "df -h",
+      "category": "Работа с файловой системой",
+      "difficulty": "легкая",
+      "flags": "-h (human readable)",
+      "output_example": "Filesystem Size Used Avail Use% Mounted on\n/dev/sda1   20G  15G  4.3G  78% /\n/dev/sda2   50G  45G  2.1G  96% /var",
+      "analysis": "• Use% > 90% - критическое заполнение<br>• /var/ - часто переполняется логами<br>• Проверяйте все разделы регулярно"
+    },
+    {
+      "command": "du -sh",
+      "description": "Просмотр использования диска",
+      "example": "du -sh /home/*",
+      "category": "Работа с файловой системой",
+      "difficulty": "легкая",
+      "flags": "-s (summary), -h (human readable)",
+      "output_example": "4.5G    /home/user1\n2.1G    /home/user2\n15G     /home/user3",
+      "analysis": "• du -sh * - размер всех директорий в текущей<br>• du -sh /var/log/* - найти большие логи<br>• sort -hr - сортировка по размеру"
+    },
+    {
+      "command": "lsof",
+      "description": "Показать открытые файлы/сокеты/процессы",
+      "example": "lsof -i :80",
+      "category": "Работа с файловой системой",
+      "difficulty": "сложная",
+      "flags": "-i (Internet), :port (конкретный порт)",
+      "output_example": "COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME\nnginx   1234 root 6u IPv4 12345  0t0 TCP *:http (LISTEN)",
+      "analysis": "• Показывает какой процесс слушает порт<br>• lsof /path/file - процессы использующие файл<br>• lsof -u username - процессы пользователя"
+    },
+
+    {
+      "command": "id",
+      "description": "Показать ID пользователя и группы",
+      "example": "id",
+      "category": "Управление пользователями",
+      "difficulty": "легкая",
+      "flags": "без флагов",
+      "output_example": "uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom)",
+      "analysis": "• uid - user ID, gid - primary group ID<br>• groups - все группы пользователя<br>• id username - информация о другом пользователе"
+    },
+    {
+      "command": "sudo",
+      "description": "Выполнить команду с правами суперпользователя",
+      "example": "sudo systemctl restart nginx",
+      "category": "Управление пользователями",
+      "difficulty": "легкая",
+      "flags": "команда (команда для выполнения)",
+      "output_example": "Nginx service restarted successfully",
+      "analysis": "• Требует настройки в /etc/sudoers<br>• sudo -i - войти как root<br>• Всегда проверяйте команду перед sudo"
+    },
+
+    {
+      "command": "journalctl",
+      "description": "Просмотр логов systemd",
+      "example": "journalctl -u nginx.service",
+      "category": "Работа с логами",
+      "difficulty": "средняя",
+      "flags": "-u (юнит), -f (follow), --since (время)",
+      "output_example": "Dec 11 10:30:01 server systemd[1]: Starting nginx - high performance web server...\nDec 11 10:30:01 server systemd[1]: Started nginx - high performance web server.",
+      "analysis": "• journalctl -f - мониторинг в реальном времени<br>• journalctl --since \"1 hour ago\"<br>• journalctl -p err - только ошибки"
+    },
+    {
+      "command": "tail -f",
+      "description": "Следить за логами в реальном времени",
+      "example": "tail -f /var/log/syslog",
+      "category": "Работа с логами",
+      "difficulty": "легкая",
+      "flags": "-f (follow)",
+      "output_example": "Dec 11 10:45:01 server CRON[1234]: (root) CMD (command)\nDec 11 10:46:01 server systemd[1]: Started Daily apt download activities.",
+      "analysis": "• Ctrl+C - остановить мониторинг<br>• tail -f /var/log/*.log - несколько файлов<br>• Полезно для отладки в реальном времени"
+    },
+
+    {
+      "command": "systemctl",
+      "description": "Управление службами",
+      "example": "systemctl status nginx",
+      "category": "Управление сервисами",
+      "difficulty": "легкая",
+      "flags": "start|stop|restart|status|enable|disable",
+      "output_example": "● nginx.service - nginx - high performance web server\n   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)\n   Active: active (running) since Mon 2023-12-11 10:30:01 UTC; 1h ago",
+      "analysis": "• systemctl enable - автозагрузка при старте<br>• systemctl disable - отключить автозагрузку<br>• systemctl daemon-reload - перечитать конфигурацию"
+    },
+
+    {
+      "command": "grep",
+      "description": "Поиск по тексту",
+      "example": "grep \"error\" /var/log/syslog",
+      "category": "Полезные утилиты",
+      "difficulty": "средняя",
+      "flags": "-r (recursive), -i (ignore case), -v (invert)",
+      "output_example": "Dec 11 10:15:25 server kernel: [ERROR] CPU throttling\nDec 11 10:20:11 server sshd[1234]: error: Connection refused",
+      "analysis": "• Основной инструмент анализа логов<br>• grep -v \"ignore\" - исключить шаблон<br>• grep -c \"pattern\" - подсчитать вхождения"
+    },
+    {
+      "command": "find",
+      "description": "Поиск файлов по критериям",
+      "example": "find /home -name \"*.log\" -mtime -7",
+      "category": "Полезные утилиты",
+      "difficulty": "сложная",
+      "flags": "-name (имя), -type (тип), -mtime (время модификации)",
+      "output_example": "/home/user1/app.log\n/home/user2/debug.log",
+      "analysis": "• find / -perm -o=w - поиск файлов доступных на запись всем<br>• find /var/log -size +100M - большие файлы<br>• find . -name \"*.tmp\" -delete - найти и удалить"
+    },
+    {
+      "command": "tar",
+      "description": "Архивирование",
+      "example": "tar -czf archive.tar.gz /path/to/dir",
+      "category": "Полезные утилиты",
+      "difficulty": "средняя",
+      "flags": "-c (create), -x (extract), -z (gzip), -f (file)",
+      "output_example": "Создан архив archive.tar.gz",
+      "analysis": "• tar -czf archive.tar.gz dir/ - создать<br>• tar -xzf archive.tar.gz - распаковать<br>• tar -tzf archive.tar.gz - просмотр содержимого"
+    },
+    {
+      "command": "which",
+      "description": "Поиск команды в системе",
+      "example": "which python3",
+      "category": "Полезные утилиты",
+      "difficulty": "легкая",
+      "flags": "команда (имя команды)",
+      "output_example": "/usr/bin/python3",
+      "analysis": "• Показывает полный путь к исполняемому файлу<br>• which ls → /usr/bin/ls<br>• Полезно для проверки доступности команд"
+    },
+    {
+      "command": "chmod 644",
+      "description": "Изменение прав доступа к файлу",
+      "example": "chmod 644 file.txt",
+      "category": "Файлы",
+      "difficulty": "средняя",
+      "flags": "число (права), -R (рекурсивно)",
+      "output_example": "file.txt права изменены на -rw-r--r--",
+      "analysis": "• 644: user(rw), group(r), other(r)<br>• 755: user(rwx), group(rx), other(rx)<br>• 600: только владелец может читать/писать"
+    },
+    {
+      "command": "chown user:group",
+      "description": "Изменение владельца и группы файла",
+      "example": "chown www-data:www-data /var/www/html",
+      "category": "Файлы",
+      "difficulty": "средняя",
+      "flags": "user:group (новый владелец), -R (рекурсивно)",
+      "output_example": "Владелец /var/www/html изменен на www-data:www-data",
+      "analysis": "• Критично для веб-серверов и служб<br>• Неправильные права - уязвимость безопасности"
+    },
+    {
+      "command": "kill -9",
+      "description": "Принудительное завершение процесса",
+      "example": "kill -9 1234",
+      "category": "Процессы",
+      "difficulty": "средняя",
+      "flags": "-9 (SIGKILL), -15 (SIGTERM), PID (ID процесса)",
+      "output_example": "Процесс 1234 завершен",
+      "analysis": "• -15 (SIGTERM) - корректное завершение<br>• -9 (SIGKILL) - принудительное<br>• Сначала попробуйте SIGTERM, потом SIGKILL"
+    },
+    {
+      "command": "whoami",
+      "description": "Показать текущего пользователя",
+      "example": "whoami",
+      "category": "Пользователи",
+      "difficulty": "легкая",
+      "flags": "без флагов",
+      "output_example": "root",
+      "analysis": "• Быстрая проверка текущих привилегий<br>• Полезно в скриптах для проверки прав"
+    },
+    {
+      "command": "netstat -tulnp",
+      "description": "Просмотр открытых портов и процессов",
+      "example": "netstat -tulnp | grep :80",
+      "category": "Сеть (classic)",
+      "difficulty": "средняя",
+      "flags": "-t (TCP), -u (UDP), -l (listen), -n (numeric), -p (process)",
+      "output_example": "Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name\ntcp        0      0 0.0.0.0:80     0.0.0.0:*       LISTEN 1234/nginx\ntcp        0      0 0.0.0.0:22     0.0.0.0:*       LISTEN 567/sshd",
+      "analysis": "• LISTEN - ожидает соединений<br>• ESTABLISHED - активные соединения<br>• Проверяйте незнакомые процессы на знакомых портах"
+    },
+    {
+      "command": "echo",
+      "description": "Вывод текста в терминал",
+      "example": "echo \"Hello World\"",
+      "category": "Скриптинг",
+      "difficulty": "легкая",
+      "flags": "-e (enable escape), -n (no newline)",
+      "output_example": "Hello World",
+      "analysis": "• Основная команда для отладки<br>• echo -e \"Line1\\nLine2\" - с переносами<br>• Используется в почти всех скриптах"
+    },
+    {
+      "command": "variable=value",
+      "description": "Создание переменной в bash",
+      "example": "name=\"John\"\necho $name",
+      "category": "Скриптинг",
+      "difficulty": "легкая",
+      "flags": "без пробелов вокруг =",
+      "output_example": "John",
+      "analysis": "• Без пробелов вокруг =<br>• Обращение через $name<br>• name=$(command) - записать вывод команды"
+    },
+    {
+      "command": "if [ condition ]; then",
+      "description": "Условный оператор в bash",
+      "example": "if [ -f \"file.txt\" ]; then\n  echo \"File exists\"\nfi",
+      "category": "Скриптинг",
+      "difficulty": "средняя",
+      "flags": "[ -f file ] (file exists), [ -d dir ] (directory exists)",
+      "output_example": "File exists",
+      "analysis": "• [ -f file ] - файл существует<br>• [ -d dir ] - директория существует<br>• [ $a -eq $b ] - числа равны"
+    }
+  ]
+}

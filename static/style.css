@@ -1,0 +1,494 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: #f5f5f5; 
+    display: flex; 
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Боковая панель */
+.sidebar { 
+    width: 320px; 
+    background: #2c3e50; 
+    color: white; 
+    padding: 20px; 
+    overflow-y: auto; 
+}
+
+.sidebar h2 {
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid #34495e;
+    padding-bottom: 10px;
+}
+
+.sidebar h3 {
+    margin: 15px 0 10px 0;
+    font-size: 1em;
+    color: #ecf0f1;
+}
+
+/* Основной контент */
+.main-content { 
+    flex: 1; 
+    padding: 20px; 
+    overflow-y: auto; 
+}
+
+.header { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    margin-bottom: 25px; 
+    text-align: center; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    font-size: 2.2em;
+    margin-bottom: 8px;
+}
+
+.header p {
+    opacity: 0.9;
+    font-size: 1.1em;
+}
+
+/* Карточки */
+.card { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    margin-bottom: 25px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Команда */
+.command { 
+    font-family: 'Courier New', monospace; 
+    background: #2c3e50; 
+    color: white; 
+    padding: 12px 16px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    display: inline-block; 
+    margin-bottom: 15px; 
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Кнопки */
+.btn { 
+    background: #3498db; 
+    color: white; 
+    border: none; 
+    padding: 12px 20px; 
+    margin: 6px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    transition: all 0.3s;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+}
+
+.btn-complete { 
+    background: #27ae60; 
+}
+.btn-complete:hover { 
+    background: #219a52; 
+}
+
+.btn-sound { 
+    background: #e74c3c; 
+}
+.btn-sound:hover { 
+    background: #c0392b; 
+}
+
+.btn-skip { 
+    background: #f39c12; 
+}
+.btn-skip:hover { 
+    background: #d35400; 
+}
+
+.btn-settings {
+    background: #9b59b6;
+}
+.btn-settings:hover {
+    background: #8e44ad;
+}
+
+.btn-primary {
+    background: #3498db;
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+}
+
+/* Блоки вывода */
+.output-box { 
+    background: #2c3e50; 
+    color: #ecf0f1; 
+    padding: 18px; 
+    border-radius: 8px; 
+    font-family: 'Courier New', monospace; 
+    white-space: pre-wrap; 
+    margin: 12px 0; 
+    font-size: 13px;
+    line-height: 1.5;
+    border: 1px solid #34495e;
+}
+
+.analysis-box { 
+    background: #fff3cd; 
+    padding: 18px; 
+    border-radius: 8px; 
+    border-left: 4px solid #f39c12; 
+    margin: 12px 0; 
+    line-height: 1.6;
+}
+
+.flags { 
+    color: #e74c3c; 
+    font-weight: bold; 
+    background: #f8f9fa; 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    font-family: 'Courier New', monospace;
+}
+
+.example-code {
+    background: #f8f9fa; 
+    padding: 4px 8px; 
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #e9ecef;
+}
+
+/* Элементы истории */
+.history-item { 
+    padding: 12px; 
+    margin: 6px 0; 
+    background: #34495e; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+    border-left: 4px solid transparent; 
+}
+
+.history-item:hover { 
+    background: #3d566e; 
+    transform: translateX(5px); 
+}
+
+.history-item.current { 
+    background: #3498db; 
+    border-left-color: #2980b9; 
+}
+
+.history-item.completed { 
+    background: #27ae60; 
+    border-left-color: #219a52; 
+}
+
+.history-item.small-item {
+    font-size: 11px; 
+    padding: 6px; 
+    margin: 3px 0;
+}
+
+.history-number { 
+    display: inline-block; 
+    width: 26px; 
+    height: 26px; 
+    background: #ecf0f1; 
+    color: #2c3e50; 
+    border-radius: 50%; 
+    text-align: center; 
+    line-height: 26px; 
+    margin-right: 10px; 
+    font-weight: bold; 
+    font-size: 12px; 
+}
+
+.command-preview { 
+    font-size: 12px; 
+    font-family: 'Courier New', monospace; 
+}
+
+/* Бейджи категорий */
+.category-badge { 
+    display: inline-block; 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    font-size: 12px; 
+    margin-left: 12px; 
+    color: white; 
+    font-weight: bold; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.category-справка { background: #3498db; }
+.category-файлы { background: #2ecc71; }
+.category-процессы { background: #e74c3c; }
+.category-пользователи { background: #9b59b6; }
+.category-сеть-classic { background: #f39c12; }
+.category-сеть-modern { background: #d35400; }
+.category-скриптинг { background: #1abc9c; }
+.category-мониторинг { background: #34495e; }
+.category-анализ { background: #7f8c8d; }
+.category-завершение { 
+    background: #e74c3c; 
+    font-size: 14px; 
+}
+
+/* Группы действий */
+.action-buttons { 
+    display: flex; 
+    gap: 12px; 
+    flex-wrap: wrap; 
+    margin-top: 25px; 
+}
+
+/* Секции прогресса */
+.progress-section { 
+    background: #34495e; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin: 15px 0; 
+    text-align: center;
+}
+
+.progress-bar { 
+    background: #2c3e50; 
+    height: 12px; 
+    border-radius: 6px; 
+    margin: 10px 0; 
+    overflow: hidden;
+}
+
+.progress-fill { 
+    background: linear-gradient(90deg, #27ae60, #2ecc71); 
+    height: 100%; 
+    border-radius: 6px; 
+    transition: width 0.5s;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.category-section {
+    margin: 12px 0;
+}
+
+/* Статистика */
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px; 
+}
+
+.stat-card { 
+    text-align: center; 
+    padding: 20px; 
+    background: #f8f9fa; 
+    border-radius: 10px; 
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-number { 
+    font-size: 2.5em; 
+    font-weight: bold; 
+    margin: 10px 0; 
+}
+
+/* Контент задания */
+.assignment-content.normal {
+    background: #fff3cd; 
+    padding: 25px; 
+    border-radius: 8px; 
+    border-left: 4px solid #f39c12;
+}
+
+.assignment-content.congratulations {
+    background: #d4edda; 
+    padding: 25px; 
+    border-radius: 8px; 
+    border-left: 4px solid #28a745;
+}
+
+/* Кнопка настроек */
+.settings-button-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+/* Модальное окно настроек */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    opacity: 0.8;
+}
+
+.settings-form {
+    padding: 25px;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.setting-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.setting-select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Кастомные чекбоксы */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.checkbox-label input {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    background: #f8f9fa;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.checkbox-label input:checked + .checkmark {
+    background: #3498db;
+    border-color: #3498db;
+}
+
+.checkbox-label input:checked + .checkmark:after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.setting-actions {
+    display

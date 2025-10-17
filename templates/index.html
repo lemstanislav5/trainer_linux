@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bash Trainer Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Боковая панель -->
+    <div class="sidebar">
+        <h2>📋 Команды ({{ commands|length }})</h2>
+        <div class="progress-section">
+            <strong>Прогресс:</strong><br>
+            {{ stats.completed|length }} / {{ commands|length }} выполнено<br>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (stats.completed|length / commands|length * 100) if commands else 0 }}%;"></div>
+            </div>
+            <strong>{{ "%.1f"|format((stats.completed|length / commands|length * 100)) if commands else 0 }}%</strong>
+        </div>
+        
+        <div class="section">
+            <h3>🔄 История заданий:</h3>
+            {% for cmd in command_history %}
+            <div class="history-item {% if cmd.command == current_reminder.command %}current{% endif %} {% if cmd.command in stats.completed %}completed{% endif %}">
+                <span class="history-number">{{ loop.index }}</span>
+                <div class="command-preview">{{ cmd.command }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h3>📊 По категориям:</h3>
+            {% set categories = [] %}
+            {% for cmd in commands %}
+                {% if cmd.category not in categories %}
+                    {% set _ = categories.append(cmd.category) %}
+                {% endif %}
+            {% endfor %}
+            
+            {% for category in categories %}
+            {% set cat_commands = commands|selectattr('category', 'equalto', category)|list %}
+            {% set completed_count = cat_commands|selectattr('command', 'in', stats.completed)|list|length %}
+            {% if cat_commands %}
+            <div class="category-section">
+                <strong>{{ category }}</strong>
+                <small>({{ completed_count }}/{{ cat_commands|length }})</small>
+                {% for cmd in cat_commands %}
+                <div class="history-item {% if cmd.command == current_reminder.command %}current{% endif %} {% if cmd.command in stats.completed %}completed{% endif %} small-item">
+                    {{ cmd.command }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <div class="header">
+            <h1>🚀 Bash Trainer Pro</h1>
+            <p>Интерактивный тренажер команд Linux • Автообновление каждые {{ settings.reminder_interval // 60 }} минут</p>
+        </div>
+
+        <!-- Кнопка настроек -->
+        <div class="settings-button-container">
+            <button class="btn btn-settings" onclick="toggleSettings()">⚙️ Настройки</button>
+        </div>
+
+        <!-- Окно настроек -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ Настройки тренажера</h2>
+                    <button class="close-btn" onclick="toggleSettings()">×</button>
+                </div>
+                
+                <div class="settings-form">
+                    <div class="setting-group">
+                        <label for="reminder_interval">📅 Интервал уведомлений:</label>
+                        <select id="reminder_interval" class="setting-select">
+                            <option value="60" {% if settings.reminder_interval == 60 %}selected{% endif %}>1 минута</option>
+                            <option value="300" {% if settings.reminder_interval == 300 %}selected{% endif %}>5 минут</option>
+                            <option value="600" {% if settings.reminder_interval == 600 %}selected{% endif %}>10 минут</option>
+                            <option value="900" {% if settings.reminder_interval == 900 %}selected{% endif %}>15 минут</option>
+                            <option value="1800" {% if settings.reminder_interval == 1800 %}selected{% endif %}>30 минут</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="sound_enabled" {% if settings.sound_enabled %}checked{% endif %}>
+                            <span class="checkmark"></span>
+                            🔊 Звуковые уведомления
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="auto_advance" {% if settings.auto_advance %}checked{% endif %}>
+                            <span class="checkmark"></span>
+                            🔄 Автоматическая смена заданий
+                        </label>
+                    </div>
+                    
+                    <div class="setting-actions">
+                        <button class="btn btn-primary" onclick="saveSettings()">💾 Сохранить настройки</button>
+                        <button class="btn btn-danger" onclick="resetProgress()">🔄 Сбросить прогресс</button>
+                        <button class="btn btn-secondary" onclick="toggleSettings()">❌ Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if current_reminder %}
+        <div class="card">
+            <h2>
+                🎯 Текущее задание 
+                <span class="category-badge category-{{ current_reminder.category|lower|replace('(', '')|replace(')', '')|replace(' ', '-') }}">
+                    {{ current_reminder.category }}
+                </span>
+                {% if current_reminder.command == "ПОЗДРАВЛЯЕМ!" %}
+                🎉
+                {% endif %}
+            </h2>
+            
+            <div class="assignment-content {% if current_reminder.command == 'ПОЗДРАВЛЯЕМ!' %}congratulations{% else %}normal{% endif %}">
+                
+                <div class="command">{{ current_reminder.command }}</div>
+                
+                <p><strong>📝 Описание:</strong> {{ current_reminder.description }}</p>
+                <p><strong>🚩 Флаги:</strong> <span class="flags">{{ current_reminder.flags }}</span></p>
+                <p><strong>🔧 Пример:</strong> <code class="example-code">{{ current_reminder.example }}</code></p>
+                <p><strong>🏷️ Категория:</strong> {{ current_reminder.category }} | 
+                   <strong>⚡ Сложность:</strong> {{ current_reminder.difficulty }}</p>
+                
+                {% if current_reminder.command != "ПОЗДРАВЛЯЕМ!" %}
+                <h3>📊 Пример вывода:</h3>
+                <div class="output-box">{{ current_reminder.output_example }}</div>
+                
+                <h3>🔍 Анализ и что проверять:</h3>
+                <div class="analysis-box">{{ current_reminder.analysis|safe }}</div>
+                {% endif %}
+                
+                <div class="action-buttons">
+                    {% if current_reminder.command != "ПОЗДРАВЛЯЕМ!" %}
+                    <button class="btn btn-complete" onclick="markCompleted('{{ current_reminder.command }}')">
+                        ✅ Отметить выполненным
+                    </button>
+                    {% endif %}
+                    <button class="btn btn-sound" onclick="testSound()">🔊 Тест звука</button>
+                    <button class="btn btn-skip" onclick="skipReminder()">
+                        {% if current_reminder.command == "ПОЗДРАВЛЯЕМ!" %}🔄 Начать заново{% else %}⏭️ Следующая команда{% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2>📈 Статистика обучения</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 style="color: #27ae60;">Выполнено</h3>
+                    <p class="stat-number" style="color: #27ae60;">{{ stats.completed|length }}</p>
+                    <p>команд</p>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: #3498db;">Всего попыток</h3>
+                    <p class="stat-number" style="color: #3498db;">{{ stats.attempts.values()|sum }}</p>
+                    <p>практики</p>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: #e74c3c;">Осталось</h3>
+                    <p class="stat-number" style="color: #e74c3c;">{{ commands|length - stats.completed|length if commands else 0 }}</p>
+                    <p>заданий</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function markCompleted(command) {
+            fetch('/mark_completed', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({command: command})
+            }).then(response => {
+                if (response.ok) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
+        
+        function testSound() {
+            fetch('/play_sound');
+        }
+        
+        function skipReminder() {
+            fetch('/skip_reminder').then(response => {
+                if (response.ok) {
+                    location.reload();
+                }
+            });
+        }
+        
+        function toggleSettings() {
+            const modal = document.getElementById('settingsModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+        
+        function saveSettings() {
+            const settings = {
+                reminder_interval: document.getElementById('reminder_interval').value,
+                sound_enabled: document.getElementById('sound_enabled').checked,
+                auto_advance: document.getElementById('auto_advance').checked
+            };
+            
+            fetch('/update_settings', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(settings)
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+                }
+            });
+        }
+        
+        function resetProgress() {
+            if (confirm('❌ Вы уверены, что хотите сбросить весь прогресс? Все выполненные команды будут обнулены.')) {
+                fetch('/reset_progress', {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+        
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('settingsModal');
+            if (event.target === modal) {
+                toggleSettings();
+            }
+        }
+        
+        // Авто-обновление каждые 30 секунд для синхронизации
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
+    </script>
+</body>
+</html>
